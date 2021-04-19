@@ -40,7 +40,7 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         $request->validate([
             'name'=>'required',
             'birthday'=>'required',
@@ -51,7 +51,8 @@ class CandidateController extends Controller
         // dd(file($imageName));
         // Storage::disk('storage')->put($imageName, file($request->image));
         // storeImage($imageName, $request->image);
-        Storage::disk('storage')->put($imageName, file($request->image));
+        $request->file('image')->move(public_path().'/images/', $img = $imageName);
+        // Storage::disk('storage')->put($imageName, file($request->image));
         $candidate = new Candidate([
             'name' => $request->get('name'),
             'sex' => (int)$request->get('sex'),
@@ -115,10 +116,11 @@ class CandidateController extends Controller
         if(($request->image != null) and ($candidate->image != $request->image_name)){
             $imageName = Str::random(20) . '.' .$request->image->clientExtension();
             // storeImage($imageName, $request->image);
-            Storage::disk('storage')->put($imageName, file($request->image));
+            // Storage::disk('storage')->put($imageName, file($request->image));
+            $request->file('image')->move(public_path().'/images/', $img = $imageName);
             // dd(storage_path('images/' . $candidate->image_url));
             // \File::delete('images/'.$candidate->image_url);
-            \File::delete( storage_path('app/public/images/' . $candidate->image_url));
+            \File::delete( public_path('images/' . $candidate->image_url));
             $candidate->image_url = $imageName;
         }
         $candidate->graduated_year = (int)trim($request->get('graduated_year'));

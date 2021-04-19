@@ -15,3 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('candidates', 'CandidateController');
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:cache');
+    return 'DONE'; //Return anything
+});

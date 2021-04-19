@@ -33,7 +33,7 @@
                         <td>Other</td>
                     @endif
                     <td>{{$candidate->birthday}}</td>
-                    <td class='candidate-avatar'><img src="{{ asset(Storage::url('images/'.$candidate->image_url)) }}" class="img-fluid img-thumbnail" alt="Candidate"></td>
+                    <td class='candidate-avatar'><img src="{{ URL::to('/') }}/images/{{$candidate->image_url}}" class="img-fluid img-thumbnail" alt="Candidate"></td>
                     <td>{{$candidate->graduated_year}}</td>
                     <td>
                         <a href="{{ route('candidates.edit',$candidate->id)}}" class="btn btn-primary">Edit</a>
@@ -79,31 +79,6 @@
           });
       }
     
-    // $('#editCandidateModal').on('show.bs.modal', function(event) {
-    //     var link     = $(event.relatedTarget),
-    //         modal    = $(this),
-    //         id = link.data("id");
-    //         name = link.data("name");
-    //         sex = link.data("sex");
-    //         birthday = link.data("birthday");
-    //         image_url = link.data("image_url");
-    //         image = link.data("image");
-    //         graduated_year = link.data("graduated_year");
-
-    //     console.log(id);
-    //     modal.find("input[name='name']").val(name);
-    //     modal.find("input[name='image-name']").val(image);
-    //     modal.find("#sex-"+sex).prop('checked',true);
-    //     var image = document.getElementById('output');
-	//     document.getElementById('edit-avatar').src = image_url;
-    //     modal.find("input[name='birthday']").val(birthday);
-    //     modal.find("input[name='graduated_year']").val(graduated_year);
-    //     var str = "'candidates.update'," + id;
-    //     console.log(str);
-    //     var r = "{{ route(" + str + ")}}";
-    //     console.log(r);
-    //     $("#edit-form").attr('action', r);
-    // });
     var loadFile = function(event) {
         console.log('loadFile');
         var image = document.getElementById('edit-avatar');
